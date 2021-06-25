@@ -1,0 +1,30 @@
+type Query {
+  users: [User]!
+  me: User
+  outfit: Outfit!
+}
+
+type Mutation {
+  createUser(name: String!, email: String!, age: Int): User!
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  age: Int
+  outfit: [Outfit!]!
+}
+
+type Outfit {
+  id: ID!
+  top: String!
+  bottom: String!
+  shoes: String!
+  publish: Boolean!
+  author: User!
+}
+
+type Vote {
+  id: ID!
+}
