@@ -1,19 +1,14 @@
 type Query {
-  users: [User]!
+  users(query: String): [User]!
+  outfits(query: String): [Outfit]!
   me: User
-  outfit: Outfit!
 }
-
-type Mutation {
-  createUser(name: String!, email: String!, age: Int): User!
-}
-
 type User {
   id: ID!
   name: String!
   email: String!
   age: Int
-  outfit: [Outfit!]!
+  outfit: [Outfit]!
 }
 
 type Outfit {
@@ -27,4 +22,8 @@ type Outfit {
 
 type Vote {
   id: ID!
+}
+
+type Mutation {
+  createUser(name: String!, email: String!, age: Int): User!
 }
