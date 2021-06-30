@@ -1,6 +1,5 @@
 const User = {
-  outfit(parent, args, { db }, info) {
-    // return db.user.id === parent.author
+  outfits(parent, args, { db }, info) {
     return db.outfits.filter((outfit) => {
       return outfit.author === parent.id
     })
@@ -8,3 +7,7 @@ const User = {
 }
 
 export { User as default }
+
+// user can vote on an outfit
+// outfit can have many votes
+//

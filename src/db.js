@@ -1,8 +1,8 @@
 const users = [
   {
     id: '1',
-    name: 'john doe',
-    email: 'tamal@aool.com',
+    name: 'Robert',
+    email: 'rob@example.com',
     age: 37,
   },
   {
@@ -13,7 +13,7 @@ const users = [
   },
   {
     id: '2',
-    name: 'some dude',
+    name: 'dude',
     email: 'somedude@aool.com',
     age: 29,
   },
@@ -38,9 +38,24 @@ const outfits = [
   },
 ]
 
+const votes = [
+  {
+    id: '1',
+    outfits: '2',
+    author: '2',
+  },
+  {
+    id: '2',
+    outfits: '2',
+    author: '1',
+  },
+]
+// this is displaying that "some dude" votes on outfit number two which is yellow shirt
+
 const db = {
   users,
   outfits,
+  votes,
 }
 
 export { db as default }

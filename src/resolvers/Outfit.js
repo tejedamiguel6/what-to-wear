@@ -3,11 +3,6 @@ const Outfit = {
     return db.users.find((user) => {
       return user.id === parent.author
     })
-
-    // return db.outfits.find((outfit) => {
-    //   console.log(parent.author, 'PARENT')
-    //   return outfit.id === parent.author
-    // })
   },
 }
 
