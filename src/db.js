@@ -13,8 +13,8 @@ const users = [
   },
   {
     id: '2',
-    name: 'dude',
-    email: 'somedude@aool.com',
+    name: 'Michelle Tejeda',
+    email: 'michelle@aol.com',
     age: 29,
   },
 ]
@@ -34,20 +34,20 @@ const outfits = [
     bottom: 'shorts',
     shoes: 'boots',
     published: true,
-    author: '2',
+    author: '1',
   },
 ]
 
 const votes = [
   {
     id: '1',
-    outfits: '2',
     author: '2',
+    outfits: '2',
   },
   {
     id: '2',
-    outfits: '2',
-    author: '1',
+    author: '2',
+    outfits: '1',
   },
 ]
 // this is displaying that "some dude" votes on outfit number two which is yellow shirt
