@@ -1,18 +1,18 @@
 const users = [
   {
-    id: '1',
-    name: 'Robert',
-    email: 'rob@example.com',
+    id: '3',
+    name: 'Bob',
+    email: 'bob@example.com',
     age: 37,
   },
   {
-    id: '8',
+    id: '2',
     name: 'miguel',
-    email: 'miguel@aool.com',
-    age: 28,
+    email: 'miguel@example.com',
+    age: 27,
   },
   {
-    id: '2',
+    id: '4',
     name: 'Michelle Tejeda',
     email: 'michelle@aol.com',
     age: 29,
@@ -26,7 +26,7 @@ const outfits = [
     bottom: 'jeans',
     shoes: 'sneakers',
     published: false,
-    author: '1',
+    author: '3',
   },
   {
     id: '2',
@@ -34,7 +34,7 @@ const outfits = [
     bottom: 'shorts',
     shoes: 'boots',
     published: true,
-    author: '1',
+    author: '3',
   },
 ]
 

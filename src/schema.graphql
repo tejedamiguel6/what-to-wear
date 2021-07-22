@@ -30,4 +30,19 @@ type Vote {
 
 type Mutation {
   createUser(name: String!, email: String!, age: Int): User!
+  createOutfit(
+    top: String!
+    bottom: String!
+    shoes: String!
+    publish: Boolean
+    author: ID!
+  ): Outfit!
+  signup(name: String!, email: String!, password: String!): AuthPayload
+  login(email: String!, password: String!): AuthPayload
+  vote(outfitId: ID!): Vote
+}
+
+type AuthPayload {
+  token: String
+  user: User
 }
