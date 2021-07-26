@@ -31,7 +31,6 @@ async function main() {
         create: {
           top: 'cool polo',
           bottom: 'sweatpants',
-
           shoes: 'sneakers',
           published: false,
         },

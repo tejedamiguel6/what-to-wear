@@ -7,6 +7,9 @@ import Mutation from './resolvers/Mutation'
 import Outfit from './resolvers/Outfit'
 import User from './resolvers/User'
 import Vote from './resolvers/Vote'
+const { PrismaClient } = require('@prisma/client')
+
+const prisma = new PrismaClient()
 
 const server = new ApolloServer({
   typeDefs: fs.readFileSync(path.join(__dirname, 'schema.graphql'), 'utf8'),
@@ -18,7 +21,8 @@ const server = new ApolloServer({
     Vote,
   },
   context: {
-    db,
+    // db,
+    prisma,
   },
 })
 

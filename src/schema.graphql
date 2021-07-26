@@ -29,17 +29,35 @@ type Vote {
 }
 
 type Mutation {
-  createUser(name: String!, email: String!, age: Int): User!
-  createOutfit(
-    top: String!
-    bottom: String!
-    shoes: String!
-    publish: Boolean
-    author: ID!
-  ): Outfit!
+  createUser(data: CreateUserInput): User!
+  deleteUser(id: ID!): User!
+  updateUser(id: ID!, data: UpdateUserInput!): User!
+  createOutfit(data: CreateOutfit): Outfit!
+  deleteOutfit(id: ID!): Outfit!
   signup(name: String!, email: String!, password: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
   vote(outfitId: ID!): Vote
+}
+
+# custom input. needs to be scalar
+input CreateUserInput {
+  name: String!
+  email: String!
+  age: Int
+}
+
+input UpdateUserInput {
+  name: String
+  email: String
+  age: Int
+}
+
+input CreateOutfit {
+  top: String!
+  bottom: String!
+  shoes: String!
+  publish: Boolean
+  author: ID!
 }
 
 type AuthPayload {
