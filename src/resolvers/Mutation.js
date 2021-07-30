@@ -11,44 +11,42 @@ const Mutation = {
     })
 
     const token = jwt.sign({ userId: user.id }, APP_SECRET)
-
     return {
       user,
       token,
-    }
-  },
-
-  async login(parent, args, { prisma }, info) {
-    const user = await prisma.user.findUnique({
-      where: {
-        email: args.email,
-      },
-    })
-    if (!user) {
-      throw new Error('No User found')
-    }
-
-    const valid = await bcrypt.compare(args.password, user.pasword)
-    if (!valid) {
-      throw new Error('Invalid Password')
-    }
-
-    return {
-      token,
-      user,
     }
   },
 
   async createOutfit(parent, args, context, info) {
     const { userId } = context
-    console.log(context, 'this is the context')
+    console.log(userId, 'this is the context')
 
     return await context.prisma.outfit.create({
       data: {
-        ...args,
+        ...args.data,
         author: { connect: { id: userId } },
       },
     })
+  },
+
+  async login(parent, args, context, info) {
+    const user = await context.prisma.user.findUnique({
+      where: { email: args.email },
+    })
+    if (!user) {
+      throw new Error('No User found')
+    }
+    const valid = await bcrypt.compare(args.password, user.password)
+    if (!valid) {
+      throw new Error('Invalid Password')
+    }
+
+    const token = jwt.sign({ userId: user.id }, APP_SECRET)
+
+    return {
+      token,
+      user,
+    }
   },
 }
 

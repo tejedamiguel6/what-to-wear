@@ -60,6 +60,6 @@ input CreateOutfit {
   top: String!
   bottom: String!
   shoes: String!
-  publish: Boolean
+  published: Boolean
   author: ID!
 }
