@@ -1,78 +1,54 @@
-import { v4 as uuidv4 } from 'uuid'
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+import { APP_SECRET } from '../utils'
+
 const Mutation = {
-  // createUser(parent, args, { db }, info) {
-  //   const emailTaken = db.users.some((user) => {
-  //     return user.email === args.data.email
-  //   })
-  //   if (emailTaken) {
-  //     throw new Error('email is taken')
-  //   }
+  async signup(parent, args, context, info) {
+    const password = await bcrypt.hash(args.password, 10)
 
-  //   const user = {
-  //     id: uuidv4(),
-  //     ...args.data,
-  //   }
-
-  //   db.users.push(user)
-
-  //   return user
-  // },
-
-  // updateUser(parent, args, { db }, info) {
-  //   const { id, data } = args
-  //   const userExist = db.users.find((user) => user.id === id)
-  //   if (!userExist) {
-  //     throw new Error('Error not found')
-  //   }
-
-  //   if (typeof data.email === 'string') {
-  //     const isEmailtaken = db.users.some((user) => user.email === data.email)
-  //     if (isEmailtaken) {
-  //       throw new Error('email is taken ')
-  //     }
-  //     user.email = data.email
-  //   }
-
-  //   if (typeof data.name === 'string') {
-  //     user.name = data.name
-  //   }
-
-  //   if (typeof data.age !== 'undefined') {
-  //     user.age = data.age
-  //   }
-
-  //   return user
-  // },
-
-  createOutfit: async function (parents, args, { prisma }, info) {
-    console.log(prisma, 'here is the data')
-    const newOutfit = await prisma.outfit.create({
-      data: {
-        top: args.top,
-      },
+    const user = await context.prisma.user.create({
+      data: { name: args.name, email: args.email, age: args.age, password },
     })
 
-    // const userExists = db.users.some((user) => {
-    //   return user.id === args.data.author
-    // })
-    // if (!userExists) {
-    //   throw new Error('User not found')
-    // }
+    const token = jwt.sign({ userId: user.id }, APP_SECRET)
 
-    // const outfit = {
-    //   id: uuidv4(),
-    //   ...args.data,
-    // }
-
-    // db.outfits.push(outfit)
-
-    // return outfit
-
-    return newOutfit
+    return {
+      user,
+      token,
+    }
   },
 
-  deleteOutfit(parent, args, { db }, info) {
-    // delete outfit data here
+  async login(parent, args, { prisma }, info) {
+    const user = await prisma.user.findUnique({
+      where: {
+        email: args.email,
+      },
+    })
+    if (!user) {
+      throw new Error('No User found')
+    }
+
+    const valid = await bcrypt.compare(args.password, user.pasword)
+    if (!valid) {
+      throw new Error('Invalid Password')
+    }
+
+    return {
+      token,
+      user,
+    }
+  },
+
+  async createOutfit(parent, args, context, info) {
+    const { userId } = context
+    console.log(context, 'this is the context')
+
+    return await context.prisma.outfit.create({
+      data: {
+        ...args,
+        author: { connect: { id: userId } },
+      },
+    })
   },
 }
 

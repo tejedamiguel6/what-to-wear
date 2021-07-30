@@ -7,9 +7,10 @@ type User {
   id: ID!
   name: String!
   email: String!
+  password: String!
   age: Int
-  outfits: [Outfit]!
-  votes: [Vote]!
+  outfits: Outfit
+  votes: Vote
 }
 
 type Outfit {
@@ -17,9 +18,9 @@ type Outfit {
   top: String!
   bottom: String!
   shoes: String!
-  publish: Boolean!
+  published: Boolean!
   author: User
-  votes: [Vote!]!
+  votes: Vote
 }
 
 type Vote {
@@ -29,14 +30,17 @@ type Vote {
 }
 
 type Mutation {
-  createUser(data: CreateUserInput): User!
-  deleteUser(id: ID!): User!
+  signup(name: String!, email: String!, password: String, age: Int): AuthPayload
+  login(email: String!, password: String!): AuthPayload
   updateUser(id: ID!, data: UpdateUserInput!): User!
+  deleteUser(id: ID!): User!
   createOutfit(data: CreateOutfit): Outfit!
   deleteOutfit(id: ID!): Outfit!
-  signup(name: String!, email: String!, password: String!): AuthPayload
-  login(email: String!, password: String!): AuthPayload
   vote(outfitId: ID!): Vote
+}
+type AuthPayload {
+  token: String
+  user: User
 }
 
 # custom input. needs to be scalar
@@ -58,9 +62,4 @@ input CreateOutfit {
   shoes: String!
   publish: Boolean
   author: ID!
-}
-
-type AuthPayload {
-  token: String
-  user: User
 }

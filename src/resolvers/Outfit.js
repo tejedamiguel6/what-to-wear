@@ -1,16 +1,12 @@
 const Outfit = {
-  author(parent, args, { db }, info) {
-    return db.users.find((user) => {
-      return user.id === parent.author
-    })
+  author(parent, args, { prisma }, info) {
+    console.log('KJKJ')
+    // it is outfit/singular
+    return prisma.outfit.findUnique({ where: { id: parent.id } }).author()
   },
 
-  votes(parent, args, { db }, info) {
-    return db.votes.filter((vote) => {
-      console.log('this is the parent', parent.author, 'this is the vote', vote)
-
-      return vote.outfits === parent.id
-    })
+  votes(parent, args, { prisma }, info) {
+    return prisma.vote.findUnique({ where: { id: parent.id } })
   },
 }
 

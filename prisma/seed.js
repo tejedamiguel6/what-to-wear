@@ -8,6 +8,7 @@ async function main() {
     create: {
       email: 'miguel@example.com',
       name: 'Miguel',
+      password: '123456',
       age: 27,
       outfits: {
         create: {
@@ -26,6 +27,7 @@ async function main() {
     create: {
       email: 'bob@example.com',
       name: 'Bob',
+      password: '123456',
       age: 37,
       outfits: {
         create: {
@@ -44,6 +46,7 @@ async function main() {
     create: {
       email: 'michelle@aol.com',
       name: 'Michelle',
+      password: '123456',
       age: 24,
       outfits: {
         create: {
