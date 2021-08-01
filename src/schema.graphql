@@ -1,6 +1,6 @@
 type Query {
   users(query: String): [User]!
-  outfits(query: String): [Outfit]!
+  outfits(query: String, filter: String): [Outfit]!
   votes: [Vote]!
 }
 type User {
@@ -26,7 +26,7 @@ type Outfit {
 type Vote {
   id: ID!
   outfits: Outfit!
-  author: User!
+  author: User
 }
 
 type Mutation {
@@ -41,6 +41,11 @@ type Mutation {
 type AuthPayload {
   token: String
   user: User
+}
+
+type Subscription {
+  newOutfit: Outfit
+  newVote: Vote
 }
 
 # custom input. needs to be scalar

@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 import { APP_SECRET } from '../utils'
+import Vote from './Vote'
 
 const Mutation = {
   async signup(parent, args, context, info) {
@@ -21,12 +22,14 @@ const Mutation = {
     const { userId } = context
     console.log(userId, 'this is the context')
 
-    return await context.prisma.outfit.create({
+    const newOutfit = await context.prisma.outfit.create({
       data: {
         ...args.data,
         author: { connect: { id: userId } },
       },
     })
+    context.pubsub.publish('NEW_OUTFIT', newOutfit)
+    return newOutfit
   },
 
   async login(parent, args, context, info) {
@@ -47,6 +50,31 @@ const Mutation = {
       token,
       user,
     }
+  },
+
+  async vote(parent, args, context, info) {
+    const userId = context.userId
+    const vote = await context.prisma.vote.findUnique({
+      where: {
+        outfitId_userId: {
+          outfitId: Number(args.outfitId),
+          userId: userId,
+        },
+      },
+    })
+    if (Boolean(vote)) {
+      throw new Error(`Already voted for outfit: ${args.outfitId}`)
+    }
+    console.log('vote', vote)
+
+    const newVote = context.prisma.vote.create({
+      data: {
+        author: { connect: { id: userId } },
+        outfits: { connect: { id: Number(args.outfitId) } },
+      },
+    })
+    context.pubsub.publish('NEW_VOTE', newVote)
+    return newVote
   },
 }
 

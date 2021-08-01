@@ -1,7 +1,7 @@
 const Vote = {
   author(parent, args, { prisma }, info) {
-    console.log(parent.userId, 'what is the info')
-    return prisma.vote.findUnique({ where: { id: parent.userId } })
+    console.log(parent, 'what is the info')
+    return prisma.vote.findUnique({ where: { id: parent.id } }).author()
   },
 
   outfits(parent, args, { prisma }, info) {
