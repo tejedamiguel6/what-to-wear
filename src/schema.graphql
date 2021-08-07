@@ -1,7 +1,29 @@
 type Query {
   users(query: String): [User]!
-  outfits(query: String, filter: String): [Outfit]!
+
+  outfits(query: String): [Outfit]!
+  feed(
+    filter: String
+    skip: Int
+    take: Int
+    orderBy: OutfitOrderByInput
+  ): [Outfit]!
+
   votes: [Vote]!
+  profiles: [Profile]!
+}
+
+type Profile {
+  id: ID!
+  bio: String!
+  image: String
+  user: User!
+}
+
+type Feed {
+  id: ID!
+  outfits: [Outfit!]!
+  count: Int
 }
 type User {
   id: ID!
@@ -11,6 +33,7 @@ type User {
   age: Int
   outfits: Outfit
   votes: Vote
+  profile: Profile!
 }
 
 type Outfit {
@@ -48,7 +71,7 @@ type Subscription {
   newVote: Vote
 }
 
-# custom input. needs to be scalar
+# custom inputs. needs to be scalar
 input CreateUserInput {
   name: String!
   email: String!
@@ -59,6 +82,20 @@ input UpdateUserInput {
   name: String
   email: String
   age: Int
+}
+
+input OutfitOrderByInput {
+  top: Sort
+  bottom: Sort
+  shoes: Sort
+  createdAt: Sort
+}
+
+# end of input types
+
+enum Sort {
+  asc
+  desc
 }
 
 input CreateOutfit {

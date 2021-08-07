@@ -19,4 +19,4 @@ const Subscription = {
   },
 }
 
-export { Subscription as default }
+export default Subscription

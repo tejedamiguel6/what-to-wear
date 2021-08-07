@@ -18,6 +18,11 @@ async function main() {
           published: true,
         },
       },
+      profile: {
+        create: {
+          bio: 'nerdy programmer dude that loves fashion',
+        },
+      },
     },
   })
 
@@ -35,6 +40,11 @@ async function main() {
           bottom: 'sweatpants',
           shoes: 'sneakers',
           published: false,
+        },
+      },
+      profile: {
+        create: {
+          bio: 'listening to vinyls and posting OFD!',
         },
       },
     },

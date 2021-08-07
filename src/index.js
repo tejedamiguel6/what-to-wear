@@ -10,6 +10,7 @@ import Mutation from './resolvers/Mutation'
 import Outfit from './resolvers/Outfit'
 import User from './resolvers/User'
 import Vote from './resolvers/Vote'
+import Profile from './resolvers/Profile'
 import Subscription from './resolvers/Subscription'
 
 const prisma = new PrismaClient()
@@ -24,6 +25,7 @@ const server = new ApolloServer({
     Outfit,
     User,
     Vote,
+    Profile,
   },
   context: ({ req }) => {
     return {
