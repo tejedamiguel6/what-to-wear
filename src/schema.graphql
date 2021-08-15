@@ -1,6 +1,5 @@
 type Query {
   users(query: String): [User]!
-
   outfits(query: String): [Outfit]!
   feed(
     filter: String
@@ -15,7 +14,7 @@ type Query {
 
 type Profile {
   id: ID!
-  bio: String!
+  bio: String
   image: String
   user: User!
 }
@@ -33,7 +32,7 @@ type User {
   age: Int
   outfits: Outfit
   votes: Vote
-  profile: Profile!
+  profiles: Profile
 }
 
 type Outfit {
