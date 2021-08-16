@@ -1,0 +1,10 @@
+{
+  "presets": ["next/babel"],
+  // "plugins": ["@babel/plugin-proposal-do-expressions"]
+  "plugins": [
+    [
+      "styled-components",
+      { "ssr": true, "displayName": true, "preprocess": false }
+    ]
+  ]
+}
